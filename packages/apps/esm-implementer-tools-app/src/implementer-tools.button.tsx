@@ -1,4 +1,5 @@
 import React from "react";
+import Close20 from "@carbon/icons-react/es/close/20";
 import Tools20 from "@carbon/icons-react/es/tools/20";
 import styles from "./implementer-tools.styles.css";
 import { UserHasAccess, useStore } from "@openmrs/esm-framework";
@@ -6,24 +7,39 @@ import { implementerToolsStore, togglePopup } from "./store";
 import { HeaderGlobalAction } from "carbon-components-react/es/components/UIShell";
 import { useTranslation } from "react-i18next";
 
-const ImplementerToolsButton: React.FC = () => {
+interface ImplementerToolsButtonProps {
+  isActivePanel: Function;
+  togglePanel: Function;
+}
+
+const ImplementerToolsButton: React.FC<ImplementerToolsButtonProps> = ({
+  isActivePanel,
+  togglePanel,
+}) => {
   const { t } = useTranslation();
   const { hasAlert } = useStore(implementerToolsStore);
 
   return (
     <UserHasAccess privilege="coreapps.systemAdministration">
       <HeaderGlobalAction
-        onClick={togglePopup}
         aria-label={t("implementerTools", "Implementer Tools")}
         aria-labelledby="Implementer Tools"
-        name="ImplementerToolsIcon"
         className={styles.toolStyles}
+        name="ImplementerToolsIcon"
+        onClick={() => {
+          togglePanel("implementerToolsMenu");
+          togglePopup();
+        }}
       >
-        <Tools20
-          className={`${styles.popupTriggerButton} ${
-            hasAlert ? styles.triggerButtonAlert : ""
-          }`}
-        />
+        {isActivePanel("implementerToolsMenu") ? (
+          <Close20 />
+        ) : (
+          <Tools20
+            className={`${styles.popupTriggerButton} ${
+              hasAlert ? styles.triggerButtonAlert : ""
+            }`}
+          />
+        )}
       </HeaderGlobalAction>
     </UserHasAccess>
   );

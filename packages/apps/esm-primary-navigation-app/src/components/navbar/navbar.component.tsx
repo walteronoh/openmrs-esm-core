@@ -94,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <ExtensionSlot
             extensionSlotName="top-nav-actions-slot"
             className={styles.topNavActionSlot}
-            state={{ isActive: isActivePanel("") }}
+            state={{ isActivePanel: isActivePanel, togglePanel: togglePanel }}
           />
           <HeaderGlobalAction
             aria-label="Notifications"
