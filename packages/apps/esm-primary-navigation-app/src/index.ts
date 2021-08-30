@@ -23,7 +23,7 @@ const backendDependencies = {
 };
 
 const frontendDependencies = {
-  "@openmrs/esm-framework": process.env.FRAMEWORK_VERSION,
+  "@openmrs/esm-framework": "3.1.10-pre.495",
 };
 
 const options = {
@@ -63,6 +63,7 @@ function setupOpenMRS() {
         offline: {
           isLogoutEnabled: false,
         },
+        order: 1,
       },
       {
         id: "change-locale",
@@ -77,6 +78,25 @@ function setupOpenMRS() {
         offline: {
           postUserProperties: postUserPropertiesOffline,
         },
+        order: 3,
+      },
+      {
+        id: "logout-panel",
+        slot: "user-panel-slot",
+        load: getAsyncLifecycle(
+          () =>
+            import(
+              "./components/logout-panel-switcher-item/logout-panel-switcher.component"
+            ),
+          options
+        ),
+        online: {
+          isLogoutEnabled: true,
+        },
+        offline: {
+          isLogoutEnabled: false,
+        },
+        order: 4,
       },
     ],
   };

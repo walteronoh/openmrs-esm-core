@@ -14,7 +14,7 @@ const backendDependencies = {
 };
 
 const frontendDependencies = {
-  "@openmrs/esm-framework": process.env.FRAMEWORK_VERSION,
+  "@openmrs/esm-framework": "3.1.10-pre.495",
 };
 
 const sharedOnlineOfflineProps = {
@@ -62,6 +62,7 @@ function setupOpenMRS() {
           options
         ),
         ...sharedOnlineOfflineProps,
+        order: 2,
       },
     ],
   };
