@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Select from "carbon-components-react/es/components/Select";
-import SelectItem from "carbon-components-react/es/components/SelectItem";
 import { Dropdown } from "carbon-components-react";
 import styles from "./change-locale.component.scss";
 import { LoggedInUser } from "@openmrs/esm-framework";
@@ -18,9 +16,6 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
   postUserProperties,
 }) => {
   const [userProps, setUserProps] = useState(user.userProperties);
-  const options = allowedLocales?.map((locale) => (
-    <SelectItem text={locale} value={locale} key={locale} />
-  ));
 
   useEffect(() => {
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
@@ -56,19 +51,6 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
         onClick={(event) => event.stopPropagation()}
         titleText="Select locale"
       />
-      <Select
-        name="selectLocale"
-        id="selectLocale"
-        invalidText="A valid value locale is required"
-        labelText="Select locale"
-        onChange={(event) =>
-          setUserProps({ ...userProps, defaultLocale: event.target.value })
-        }
-        onClick={(event) => event.stopPropagation()}
-        value={userProps.defaultLocale}
-      >
-        {options}
-      </Select>
     </div>
   );
 };
